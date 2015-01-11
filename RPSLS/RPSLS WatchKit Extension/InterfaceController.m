@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *animateScissor;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *animateLizard;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *animateSpock;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *winlosetext;
 
 
 @end
@@ -24,6 +25,8 @@ int status = 0;
 
 @implementation InterfaceController{
     SRWebSocket *webSocket;
+    NSInteger wincount;
+    NSInteger losecount;
 }
 
 - (void)awakeWithContext:(id)context {
@@ -34,6 +37,9 @@ int status = 0;
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+    wincount = 0;
+    losecount = 0;
+    [self.winlosetext setText:@"W:0 L:0"];
     [self connectWebSocket];
     NSLog(@"willActivate finished");
 }
@@ -75,14 +81,26 @@ int status = 0;
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
    // self.messagesTextView.text = [NSString stringWithFormat:@"%@\n%@", self.messagesTextView.text, message];
+    NSLog(message);
     if ([message isKindOfClass:[NSString class]]) {
         if ([message isEqualToString:@"WIN"]) {
             self.statusMessage.text = @"You Win !";
+            wincount = wincount + 1 ;
+            NSString *winlose = [NSString stringWithFormat:@"W:%ld L:%ld",(long) wincount, (long)losecount];
+            [self.winlosetext setText:winlose];
             [self testButton];
         }
         if ([message isEqualToString:@"LOSE"]) {
             self.statusMessage.text = @"You Lose !";
+            losecount = losecount + 1 ;
+            NSString *winlose = [NSString stringWithFormat:@"W:%ld L:%ld",(long) wincount, (long)losecount];
+
             [self loseButton];
+        }if ([message isEqualToString:@"DRAW"]) {
+            self.statusMessage.text = @"It's a Draw !";
+        }
+        if ([message isEqualToString:@"WAITING"]) {
+            self.statusMessage.text = @"Waiting for other user!";
         }
     }
 }
@@ -91,7 +109,7 @@ int status = 0;
     // #1
     x = 1;
     NSString *myString = [NSString stringWithFormat:@"%d",x];
-    self.statusMessage.text = myString;
+    //self.statusMessage.text = myString;
     //change/animate BG
     [self.animateRock setBackgroundImageNamed:(@"rock-.png")];
     int64_t delayInSeconds = 0.4;
@@ -108,7 +126,7 @@ int status = 0;
     // #2
     x = 2;
     NSString *myString = [NSString stringWithFormat:@"%d",x];
-    self.statusMessage.text = myString;
+    //self.statusMessage.text = myString;
     
     //change/animate BG
     [self.animatePaper setBackgroundImageNamed:(@"paper-.png")];
@@ -126,7 +144,7 @@ int status = 0;
     // #3
     x = 3;
     NSString *myString = [NSString stringWithFormat:@"%d",x];
-    self.statusMessage.text = myString;
+    //self.statusMessage.text = myString;
     
     //change/animate BG
     [self.animateScissor setBackgroundImageNamed:(@"scissors-.png")];
@@ -142,7 +160,7 @@ int status = 0;
 - (IBAction)lizardButton {
     x = 4;
     NSString *myString = [NSString stringWithFormat:@"%d",x];
-    self.statusMessage.text = myString;
+    //self.statusMessage.text = myString;
     
     //change/animate BG
     [self.animateLizard setBackgroundImageNamed:(@"lizard-.png")];
@@ -158,7 +176,7 @@ int status = 0;
 - (IBAction)spockButton {
     x = 5;
     NSString *myString = [NSString stringWithFormat:@"%d",x];
-    self.statusMessage.text = myString;
+    //self.statusMessage.text = myString;
     
     //change/animate BG
     [self.animateSpock setBackgroundImageNamed:(@"spock-.png")];

@@ -19,14 +19,15 @@
                                         <action selector="rockButton" destination="AgC-eL-Hgc" id="2fv-Ng-ExQ"/>
                                     </connections>
                                 </button>
-                                <group width="1" height="36" alignment="left" spacing="56" id="lkq-sZ-Pua">
+                                <group width="1" height="36" alignment="left" spacing="12" id="lkq-sZ-Pua">
                                     <items>
-                                        <button width="36" height="36" alignment="center" backgroundImage="spock" id="jaq-to-Lct">
+                                        <button width="36" height="36" alignment="left" backgroundImage="spock" id="jaq-to-Lct">
                                             <connections>
                                                 <action selector="spockButton" destination="AgC-eL-Hgc" id="54p-Ao-X8g"/>
                                             </connections>
                                         </button>
-                                        <button width="36" height="36" alignment="center" backgroundImage="paper" id="c3m-ya-HNh">
+                                        <label width="36" height="36" alignment="center" verticalAlignment="center" text="W:10 L:5" minimumScaleFactor="0.30000000000000016" id="mvh-y5-yzX"/>
+                                        <button width="36" height="36" alignment="right" verticalAlignment="center" backgroundImage="paper" id="c3m-ya-HNh">
                                             <connections>
                                                 <action selector="paperButton" destination="AgC-eL-Hgc" id="0Sf-Nu-APu"/>
                                             </connections>
@@ -60,6 +61,7 @@
                         <outlet property="animateSpock" destination="jaq-to-Lct" id="76b-V3-3s2"/>
                         <outlet property="changeBG" destination="UjB-83-zm4" id="sJK-B8-AxY"/>
                         <outlet property="statusMessage" destination="2se-ye-sdX" id="gY6-E6-IOq"/>
+                        <outlet property="winlosetext" destination="mvh-y5-yzX" id="DT1-dh-CDZ"/>
                     </connections>
                 </controller>
             </objects>
